@@ -9,30 +9,22 @@ export interface ChatConfig {
 
 export function useClientConfig() {
   const API_ROUTE = "/api/chat/config";
-  const chatAPI = process.env.NEXT_PUBLIC_CHAT_API;
+  const backendURL = "https://chatbotsoc-backend-lnk4vu7nua-et.a.run.app";
   const [config, setConfig] = useState<ChatConfig>({
-    chatAPI,
+    chatAPI: backendURL,
   });
 
   const configAPI = useMemo(() => {
-    if (!chatAPI) {
-      console.error("chatAPI is not defined");
-      return "";
-    }
-    const backendOrigin = new URL(chatAPI).origin;
-    const constructedAPI = `${backendOrigin}${API_ROUTE}`;
-    console.log(`Constructed configAPI: ${constructedAPI}`);
-    return constructedAPI;
-  }, [chatAPI]);
+    const backendOrigin = new URL(backendURL).origin;
+    return `${backendOrigin}${API_ROUTE}`;
+  }, [backendURL]);
 
   useEffect(() => {
-    if (configAPI) {
-      fetch(configAPI)
-        .then((response) => response.json())
-        .then((data) => setConfig({ ...data, chatAPI }))
-        .catch((error) => console.error("Error fetching config", error));
-    }
-  }, [chatAPI, configAPI]);
+    fetch(configAPI)
+      .then((response) => response.json())
+      .then((data) => setConfig({ ...data, chatAPI: backendURL }))
+      .catch((error) => console.error("Error fetching config", error));
+  }, [configAPI]);
 
   return config;
 }
