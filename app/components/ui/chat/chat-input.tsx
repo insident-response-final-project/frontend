@@ -150,7 +150,7 @@ export default function ChatInput(
       )}
       <div className="flex w-full items-start justify-between gap-4 ">
         <Input
-          autoFocus
+          // autoFocus
           name="message"
           placeholder="Type a message"
           className="flex-1"
