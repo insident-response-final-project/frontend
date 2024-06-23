@@ -9,7 +9,8 @@ export interface ChatConfig {
 
 export function useClientConfig() {
   const API_ROUTE = "/api/chat/config";
-  const backendURL = "https://chatbotsoc-backend-lnk4vu7nua-et.a.run.app";
+  const backendURL =
+    "https://chatbotsoc-backend-lnk4vu7nua-et.a.run.app/api/chat";
   const [config, setConfig] = useState<ChatConfig>({
     chatAPI: backendURL,
   });
